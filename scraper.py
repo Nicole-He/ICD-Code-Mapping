@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import os
 import csv
 
-os.chdir('C:/Users/s0046794/Documents/pycharm/brickset-scraper')
+os.chdir('./pycharm/brickset-scraper')
 
 #Get list of all valid ICD Codes
 import xml.etree.ElementTree as ET
@@ -13,6 +13,8 @@ code_list = []
 for code in root.iter('code'):
     code_list.append(code.text.replace('-', ''))
 
+
+#Total number of unique ICD codes
 num_code = len(code_list)
 
 def get_syn_list(url):
@@ -37,6 +39,7 @@ def get_syn_list(url):
 #if soup.find('span', {'class': 'text-success'}) is not None:
     #val.append('Valid ICD Code')
 
+#Save synonyms list to csv file
 with open('mapping.csv', 'w', newline='') as csv_file:
     writer = csv.writer(csv_file)
     writer.writerow(['ICD Code', 'Description', 'Synonyms'])
